@@ -1,0 +1,19 @@
+<div class="sidebar">
+    <!-- Company Logo -->
+    <div class="logo-container">
+        <img src="{{ url_for('static', filename='images/logobg.png') }}" alt="Company Logo" class="company-logo">
+    </div>
+
+    <!-- Admin Panel Title -->
+    <h2>Admin Panel</h2>
+
+    <!-- Order Count -->
+    <div class="order-count">
+        <p>Total Orders: <span>{{ order_count }}</span></p>
+    </div>
+
+    <!-- Navigation Links -->
+    <ul>
+        <li><a href="{{ url_for('orders') }}">Orders</a></li>
+    </ul>
+</div>
