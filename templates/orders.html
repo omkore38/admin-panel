@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="herbal-header">Orders List</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>User ID</th>
+            <th>Status</th>
+            <th>Total Amount</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order in orders %}
+        <tr>
+            <td>{{ order._id }}</td>
+            <td>{{ order.userId }}</td>
+            <td>{{ order.orderStatus }}</td>
+            <td>₹{{ order.totalAmount }}</td>
+            <td>
+                <a href="{{ url_for('order_details', order_id=order._id) }}" class="btn">View Details</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
