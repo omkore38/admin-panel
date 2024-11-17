@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="herbal-header">Order Details</h2>
+
+<table class="details-table">
+    <tr>
+        <th>Order ID</th>
+        <td>{{ order._id }}</td>
+    </tr>
+    <tr>
+        <th>User ID</th>
+        <td>{{ order.userId }}</td>
+    </tr>
+    <tr>
+        <th>Cart ID</th>
+        <td>{{ order.cartId }}</td>
+    </tr>
+    <tr>
+        <th>Order Status</th>
+        <td>{{ order.orderStatus }}</td>
+    </tr>
+    <tr>
+        <th>Total Amount</th>
+        <td>₹{{ order.totalAmount }}</td>
+    </tr>
+    <tr>
+        <th>Payment Method</th>
+        <td>{{ order.paymentMethod }}</td>
+    </tr>
+    <tr>
+        <th>Payment Status</th>
+        <td>{{ order.paymentStatus }}</td>
+    </tr>
+    <tr>
+        <th>Order Date</th>
+        <td>{{ order.orderDate }}</td>
+    </tr>
+    <tr>
+        <th>Last Updated</th>
+        <td>{{ order.orderUpdateDate }}</td>
+    </tr>
+</table>
+
+<h4 class="herbal-header">Address Information</h4>
+<table class="details-table">
+    <tr>
+        <th>Address</th>
+        <td>{{ order.addressInfo.address }}</td>
+    </tr>
+    <tr>
+        <th>City</th>
+        <td>{{ order.addressInfo.city }}</td>
+    </tr>
+    <tr>
+        <th>Pincode</th>
+        <td>{{ order.addressInfo.pincode }}</td>
+    </tr>
+    <tr>
+        <th>Phone</th>
+        <td>{{ order.addressInfo.phone }}</td>
+    </tr>
+    <tr>
+        <th>Notes</th>
+        <td>{{ order.addressInfo.notes }}</td>
+    </tr>
+</table>
+
+<h4 class="herbal-header">Cart Items</h4>
+<table class="details-table">
+    <thead>
+        <tr>
+            <th>Product Image</th>
+            <th>Title</th>
+            <th>Quantity</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in order.cartItems %}
+        <tr>
+            <td>
+                <img src="{{ item.image }}" alt="Product Image" class="product-image">
+            </td>
+            <td>{{ item.title }}</td>
+            <td>{{ item.quantity }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+
+</table>
+
+<!-- Update Order Status -->
+<form action="{{ url_for('update_order_status', order_id=order._id) }}" method="POST" style="margin-top: 20px;">
+    <label for="status"><strong>Update Status:</strong></label>
+    <select name="status" id="status">
+        <option value="pending" {% if order.orderStatus == 'pending' %}selected{% endif %}>Pending</option>
+        <option value="shipped" {% if order.orderStatus == 'shipped' %}selected{% endif %}>Shipped</option>
+        <option value="delivered" {% if order.orderStatus == 'delivered' %}selected{% endif %}>Delivered</option>
+    </select>
+    <button type="submit" class="btn">Update Status</button>
+</form>
+
+<!-- Back to All Orders Button -->
+<a href="{{ url_for('orders') }}" class="btn" style="margin-top: 20px;">Back to All Orders</a>
+{% endblock %}
